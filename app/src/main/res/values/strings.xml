@@ -6,8 +6,6 @@
     <string name="true_button">Верно</string>
     <string name="false_button">Неверно</string>
     <string name="correct_toast">Правильно!
-        <string name="next_button">Next</string>
-        <string name="prev_button">Prev</string>
 </string>
     <string name="incorrect_toast">Неправильно!
 </string>
@@ -29,5 +27,4 @@
     <string name="matematic">
         2 умножить на 20 и минус 20 будет 20?
     </string>
-
 </resources>

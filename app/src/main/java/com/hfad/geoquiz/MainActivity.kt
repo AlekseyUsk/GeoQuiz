@@ -7,6 +7,9 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import viewModel.QuizViewModel
 
 private const val TAG = "MainActivity"
 
@@ -45,12 +48,15 @@ class MainActivity : AppCompatActivity() {
     )
     private var currentIndex = 0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate(Bundle?) called")
 
         setContentView(R.layout.activity_main)
+// связал activity с экземпляром QuizViewModel ->
+        val provider: ViewModelProvider = ViewModelProviders.of(this)
+        val quizViewModel = provider.get(QuizViewModel::class.java)
+        Log.d(TAG, "получил QuizViewModel : $quizViewModel")
 
         true_button = findViewById(R.id.true_button)
         false_button = findViewById(R.id.false_button)
@@ -77,28 +83,42 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d(TAG,
-            "onStart() called")
+        Log.d(
+            TAG,
+            "onStart() called"
+        )
     }
+
     override fun onResume() {
         super.onResume()
-        Log.d(TAG,
-            "onResume() called")
+        Log.d(
+            TAG,
+            "onResume() called"
+        )
     }
+
     override fun onPause() {
         super.onPause()
-        Log.d(TAG,
-            "onPause() called")
+        Log.d(
+            TAG,
+            "onPause() called"
+        )
     }
+
     override fun onStop() {
         super.onStop()
-        Log.d(TAG,
-            "onStop() called")
+        Log.d(
+            TAG,
+            "onStop() called"
+        )
     }
+
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(TAG,
-            "onDestroy() called")
+        Log.d(
+            TAG,
+            "onDestroy() called"
+        )
     }
 
 
