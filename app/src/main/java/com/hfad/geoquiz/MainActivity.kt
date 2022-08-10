@@ -14,6 +14,12 @@ import viewModel.QuizViewModel
 private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
+    // добавим лениво инициализированное свойство,
+//чтобы хранить экземпляры QuizViewModel, связанные с
+//activity -->
+    private val quizViewModel: QuizViewModel by lazy {
+        ViewModelProviders.of(this).get(QuizViewModel::class.java)
+    }
 
     private lateinit var true_button: Button
     private lateinit var false_button: Button
@@ -21,42 +27,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var questionTextView: TextView
     private lateinit var prev_button: ImageButton
 
-    private val questionBank = listOf(
-        Question(
-            R.string.question_australia, true
-        ),
-        Question(
-            R.string.question_oceans,
-            true
-        ),
-        Question(
-            R.string.question_mideast,
-            false
-        ),
-        Question(
-            R.string.question_africa,
-            false
-        ),
-        Question(
-            R.string.question_americas, true
-        ),
-        Question(
-            R.string.question_asia,
-            true
-        ),
-        Question(R.string.matematic, true)
-    )
-    private var currentIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate(Bundle?) called")
 
         setContentView(R.layout.activity_main)
-// связал activity с экземпляром QuizViewModel ->
-        val provider: ViewModelProvider = ViewModelProviders.of(this)
-        val quizViewModel = provider.get(QuizViewModel::class.java)
-        Log.d(TAG, "получил QuizViewModel : $quizViewModel")
 
         true_button = findViewById(R.id.true_button)
         false_button = findViewById(R.id.false_button)
@@ -71,65 +47,25 @@ class MainActivity : AppCompatActivity() {
             checkAnswer(false)
         }
         prev_button.setOnClickListener {
-            currentIndex = (currentIndex - 1) % questionBank.size
+            quizViewModel.moveToPrev()
             updateQuestion()
         }
         next_Button.setOnClickListener {
-            currentIndex = (currentIndex + 1) % questionBank.size
+            quizViewModel.moveToNext()
             updateQuestion()
         }
         updateQuestion()
     }
 
-    override fun onStart() {
-        super.onStart()
-        Log.d(
-            TAG,
-            "onStart() called"
-        )
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(
-            TAG,
-            "onResume() called"
-        )
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(
-            TAG,
-            "onPause() called"
-        )
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(
-            TAG,
-            "onStop() called"
-        )
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(
-            TAG,
-            "onDestroy() called"
-        )
-    }
-
-
     private fun updateQuestion() {
-        val questionTextResId = questionBank[currentIndex].textResId
+        val questionTextResId = quizViewModel.currentQuestionText
         questionTextView.setText(questionTextResId)
     }
 
     private fun checkAnswer(userAnswer: Boolean) {
         val correctAnswer =
-            questionBank[currentIndex].answer
+            quizViewModel.currentQuestionAnswer
+
         val messageResId = if (userAnswer == correctAnswer) {
             R.string.correct_toast
         } else {
