@@ -1,7 +1,5 @@
 package viewModel
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.hfad.geoquiz.Question
 import com.hfad.geoquiz.R

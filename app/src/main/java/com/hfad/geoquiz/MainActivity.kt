@@ -12,8 +12,31 @@ import androidx.lifecycle.ViewModelProviders
 import viewModel.QuizViewModel
 
 private const val TAG = "MainActivity"
+private const val KEY_INDEX = "KEY_INDEX"
 
 class MainActivity : AppCompatActivity() {
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
+        Log.i(
+            TAG,
+            "onSaveInstanceState"
+        )
+        savedInstanceState.putInt(
+            KEY_INDEX,
+            quizViewModel.currentIndex
+        )
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+
     // добавим лениво инициализированное свойство,
 //чтобы хранить экземпляры QuizViewModel, связанные с
 //activity -->
@@ -30,9 +53,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate(Bundle?) called")
-
         setContentView(R.layout.activity_main)
+
+        val currentIndex =
+            savedInstanceState?.getInt(KEY_INDEX, 0) ?: 0
+        quizViewModel.currentIndex = currentIndex
+
 
         true_button = findViewById(R.id.true_button)
         false_button = findViewById(R.id.false_button)
