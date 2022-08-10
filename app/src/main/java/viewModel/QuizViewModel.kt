@@ -1,7 +1,6 @@
 package viewModel
 
 import androidx.lifecycle.ViewModel
-import com.hfad.geoquiz.Question
 import com.hfad.geoquiz.R
 
 private const val TAG = "QuizViewModel"
@@ -36,7 +35,7 @@ class QuizViewModel : ViewModel() {
         Question(R.string.matematic, true)
     )
 
-    val currentQuestionAnswer: Boolean
+    val currentQuestionAnswer: Boolean //ответ на текущий вопрос
         get() =
 
             questionBank[currentIndex].answer

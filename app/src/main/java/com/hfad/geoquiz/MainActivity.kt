@@ -83,12 +83,12 @@ class MainActivity : AppCompatActivity() {
         updateQuestion()
     }
 
-    private fun updateQuestion() {
+    private fun updateQuestion() { //обновить вопрос
         val questionTextResId = quizViewModel.currentQuestionText
         questionTextView.setText(questionTextResId)
     }
 
-    private fun checkAnswer(userAnswer: Boolean) {
+    private fun checkAnswer(userAnswer: Boolean) { //проверьте Ответ
         val correctAnswer =
             quizViewModel.currentQuestionAnswer
 

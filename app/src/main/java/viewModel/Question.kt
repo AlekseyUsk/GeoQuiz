@@ -1,4 +1,4 @@
-package com.hfad.geoquiz
+package viewModel
 
 import androidx.annotation.StringRes
 
