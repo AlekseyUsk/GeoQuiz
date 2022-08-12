@@ -10,9 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textSize="20sp"
-        android:textAppearance="@style/Theme.Material3.Dark"
         android:padding="44dp"
+        android:textAppearance="@style/Theme.Material3.Dark"
+        android:textSize="20sp"
         tools:text="@string/question_australia" />
 
     <LinearLayout
@@ -52,8 +52,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-       android:layout_marginLeft="500dp"
+        android:layout_marginLeft="500dp"
         android:padding="20dp"
-        android:src="@drawable/arrow_right" />
+        android:src="@drawable/arrow_right"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:id="@+id/cheat_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="100dp"
+        android:text="@string/cheat_button" />
+
 
 </FrameLayout>

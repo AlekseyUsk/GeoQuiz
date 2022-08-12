@@ -1,5 +1,6 @@
 package com.hfad.geoquiz
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var next_Button: ImageButton
     private lateinit var questionTextView: TextView
     private lateinit var prev_button: ImageButton
+    private lateinit var cheatButton: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +66,13 @@ class MainActivity : AppCompatActivity() {
         questionTextView = findViewById(R.id.question_text_view)
         prev_button = findViewById(R.id.prev_button)
         next_Button = findViewById(R.id.next_button)
+        cheatButton = findViewById(R.id.cheat_button)
+
+        cheatButton.setOnClickListener {
+            //запуск CheatActivity
+            val intent = Intent(this, CheatActivity::class.java)
+            startActivity(intent)
+        }
 
         true_button.setOnClickListener {
             checkAnswer(true)
@@ -76,14 +85,13 @@ class MainActivity : AppCompatActivity() {
             updateQuestion()
         }
         next_Button.setOnClickListener {
-           // quizViewModel.moveToNext() - создал искуственно ошибку
+            quizViewModel.moveToNext()
             updateQuestion()
         }
         updateQuestion()
     }
 
     private fun updateQuestion() { //обновить вопрос
-       // Log.d(TAG,"Updating question text - Обновление текста вопроса",Exception()) -  команда сохранения отладочного вывода
         val questionTextResId = quizViewModel.currentQuestionText
         questionTextView.setText(questionTextResId)
     }

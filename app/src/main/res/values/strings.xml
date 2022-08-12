@@ -27,4 +27,10 @@
     <string name="matematic">
         2 умножить на 20 и минус 20 будет 20?
     </string>
+    <string name="warning_text">Вы уверены,что хотите это сделать?</string>
+    <string name="show_answer_button">показать ответ?</string>
+    <string name="cheat_button">обманываете!</string>
+    <string name="judgment_toast">Мошенничество - это
+неправильно!</string>
+
 </resources>
