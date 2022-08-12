@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import viewModel.QuizViewModel
 
@@ -77,13 +76,14 @@ class MainActivity : AppCompatActivity() {
             updateQuestion()
         }
         next_Button.setOnClickListener {
-            quizViewModel.moveToNext()
+           // quizViewModel.moveToNext() - создал искуственно ошибку
             updateQuestion()
         }
         updateQuestion()
     }
 
     private fun updateQuestion() { //обновить вопрос
+       // Log.d(TAG,"Updating question text - Обновление текста вопроса",Exception()) -  команда сохранения отладочного вывода
         val questionTextResId = quizViewModel.currentQuestionText
         questionTextView.setText(questionTextResId)
     }
