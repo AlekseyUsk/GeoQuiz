@@ -1,5 +1,6 @@
 package com.hfad.geoquiz
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,8 +8,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 
-private const val EXTRA_ANSWER_IS_TRUE =
-    "com.bignerdranch.android.geoquiz.answer_is_true"
+const val EXTRA_ANSWER_SHOWN = "com.bignerdranch.android.geoquiz.answer_shown"
+private const val EXTRA_ANSWER_IS_TRUE = "com.bignerdranch.android.geoquiz.answer_is_true"
 
 class CheatActivity : AppCompatActivity() {
 
@@ -33,10 +34,18 @@ class CheatActivity : AppCompatActivity() {
                 else -> R.string.false_button
             }
             answerTextView.setText(answerText)
+            setAnswerShownResult(true)
+
         }
-
-
     }
+
+    private fun setAnswerShownResult(isAnswerShown: Boolean) {
+        val data = Intent().apply {
+            putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown)
+        }
+        setResult(Activity.RESULT_OK, data)
+    }
+
 
     //MainActivity или любому другому коду
 //приложения ненужно знать подробности реализации тех

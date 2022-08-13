@@ -1,5 +1,6 @@
 package com.hfad.geoquiz
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,7 @@ import viewModel.QuizViewModel
 
 private const val TAG = "MainActivity"
 private const val KEY_INDEX = "KEY_INDEX"
+private const val REQUEST_CODE_CHEAT = 0
 
 class MainActivity : AppCompatActivity() {
 
@@ -72,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             //запуск CheatActivity
             val answerIsTrue = quizViewModel.currentQuestionAnswer
             val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue)
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_CODE_CHEAT) //передача результата родителю
         }
 
         true_button.setOnClickListener {
@@ -92,6 +94,18 @@ class MainActivity : AppCompatActivity() {
         updateQuestion()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode != Activity.RESULT_OK) {
+            return
+        }
+        if (requestCode == REQUEST_CODE_CHEAT) {
+            quizViewModel.isCheater =
+                data?.getBooleanExtra(EXTRA_ANSWER_SHOWN, false) ?: false
+        }
+    }
+
     private fun updateQuestion() { //обновить вопрос
         val questionTextResId = quizViewModel.currentQuestionText
         questionTextView.setText(questionTextResId)
@@ -101,11 +115,17 @@ class MainActivity : AppCompatActivity() {
         val correctAnswer =
             quizViewModel.currentQuestionAnswer
 
-        val messageResId = if (userAnswer == correctAnswer) {
-            R.string.correct_toast
-        } else {
-            R.string.incorrect_toast
+        val messageResId = when {
+            quizViewModel.isCheater ->
+                R.string.judgment_toast
+            userAnswer == correctAnswer ->
+                R.string.correct_toast
+            else -> R.string.incorrect_toast
         }
-        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            this, messageResId,
+            Toast.LENGTH_SHORT
+        )
+            .show()
     }
 }
